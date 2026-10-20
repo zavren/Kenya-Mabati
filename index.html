@@ -1296,5 +1296,23 @@ updateCartCount();
 
 </script>
 
+<script>
+(function(){
+  var K='hosting-notice-seen';
+  try{if(sessionStorage.getItem(K))return;sessionStorage.setItem(K,'1');}catch(e){}
+  var st=document.createElement('style');
+  st.textContent="#hn-ov{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px}#hn-box{position:relative;background:#fff;color:#222;max-width:420px;width:100%;border-radius:16px;padding:26px 24px 22px;font:15px/1.55 system-ui,-apple-system,sans-serif;box-shadow:0 12px 40px rgba(0,0,0,.25)}#hn-box b{display:block;font-size:17px;margin-bottom:8px}#hn-x{position:absolute;top:8px;right:10px;border:0;background:none;font-size:20px;line-height:1;cursor:pointer;color:inherit;opacity:.6;padding:4px 8px}#hn-x:hover{opacity:1}@media(max-width:480px){#hn-box{font-size:13px}}";
+  document.head.appendChild(st);
+  var h='<b>⚠️ Hosting Subscription Expiring Soon!</b>Your hosting plan is nearing its expiry date. Renew now to avoid website downtime and ensure uninterrupted access.<button id="hn-x" aria-label="Close">&times;</button>';
+  var box=document.createElement('div');
+  box.id='hn-box';box.setAttribute('role','status');box.innerHTML=h;
+  var ov=document.createElement('div');ov.id='hn-ov';ov.appendChild(box);
+  var root=ov;ov.onclick=function(e){if(e.target===ov)ov.remove();};
+  box.querySelector('#hn-x').onclick=function(){root.remove();};
+  function go(){document.body.appendChild(root);}
+  document.body?go():document.addEventListener('DOMContentLoaded',go);
+})();
+</script>
+
 </body>
 </html>
